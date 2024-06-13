@@ -245,8 +245,6 @@ jQuery.trumbowyg={langs:{en:{viewHTML:"View HTML",undo:"Undo",redo:"Redo",format
                     ]
                 });
 
-                container.style.marginBottom = document.querySelector('.input-coment').clientHeight + 'px';
-
             }else{
                 isShowing = true
 
@@ -256,10 +254,14 @@ jQuery.trumbowyg={langs:{en:{viewHTML:"View HTML",undo:"Undo",redo:"Redo",format
                 newTextarea.id = 'coment-content';
 
                 document.querySelector('.input-coment .content').replaceChild(newTextarea, comentArea)
-
-                container.style.marginBottom = '0';
             }
         })
+
+        const resizeObserver  = new ResizeObserver(() => {
+            container.style.marginBottom = document.querySelector('.input-coment').clientHeight + 'px'
+        })
+
+        resizeObserver.observe(document.querySelector('.input-coment'))
         
         if (sessionStorage.getItem('comments') != null){
             container.innerHTML += sessionStorage.getItem('comments');
